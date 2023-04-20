@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var checkAmount = 0.0
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 0.0
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView{
+            Form{
+                Section {
+                    TextField("Amount", value: $checkAmount, format:
+                            .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                    .keyboardType(.decimalPad)
+                    Picker("Number of people", selection: $numberOfPeople) {
+                        ForEach(2..<10) {
+                            Text("\($0) people")
+                        }
+                    }
+                }
+                Section  {
+                    Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "EUR" ))
+                }
+            }
+            .navigationTitle("WeSplit")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .padding()
     }
 }
 
