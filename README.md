@@ -14,4 +14,6 @@ The app
 Read currency local data from Locale.current-currency.identifier
 
 ------
-![App](https://user-images.githubusercontent.com/26569311/233581248-c7bdcfe6-f87b-466e-937f-065a169ae4df.gif)
+
+
+![Simulator Screen Recording - iPhone 14 - 2023-04-21 at 10 53 55](https://user-images.githubusercontent.com/26569311/233592366-1eb114bf-b62a-4ab1-b31e-159d39e2cf49.gif)
