@@ -14,6 +14,7 @@ struct ContentView: View {
     //A particular wrapper to handle keyboard state
     @FocusState private var amountIsFocused: Bool
     
+    var currentCurrency : FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currency?.identifier ?? "EUR")
     let tipPercentages = [10 , 15 , 20 , 25 , 30]
     
     var totalPerPerson: Double {
@@ -26,12 +27,16 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var amountPlusTip: Double {
+        let tipSelection = Double(tipPercentage)
+        return (checkAmount / 100 * tipSelection) + checkAmount
+    }
+    
     var body: some View {
         NavigationView{
             Form{
                 Section {
-                    TextField("Amount", value: $checkAmount, format:
-                            .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                    TextField("Amount", value: $checkAmount, format: currentCurrency)
                     .keyboardType(.decimalPad)
                     //change the state of the variable if the Textfield is selected
                     .focused($amountIsFocused)
@@ -54,9 +59,17 @@ struct ContentView: View {
                         Text("How much tip do you want to leave?")
                     }
                 
+                Section {
+                    Text(amountPlusTip, format: currentCurrency)
+                } header: {
+                    Text("Total plus tip")
+                }
+                
                  
                 Section  {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "EUR" ))
+                    Text(totalPerPerson, format: currentCurrency)
+                } header: {
+                    Text("Amount per person")
                 }
             }
             .navigationTitle("WeSplit")
