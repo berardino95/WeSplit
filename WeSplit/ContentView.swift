@@ -15,7 +15,7 @@ struct ContentView: View {
     @FocusState private var amountIsFocused: Bool
     
     var currentCurrency : FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currency?.identifier ?? "EUR")
-    let tipPercentages = [10 , 15 , 20 , 25 , 30]
+    let tipPercentages = [0, 10 , 15 , 20 , 25 , 30]
     
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
@@ -61,6 +61,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(amountPlusTip, format: currentCurrency)
+                        .foregroundColor(tipPercentage == 0 ? Color.red : Color.primary)
                 } header: {
                     Text("Total plus tip")
                 }
@@ -68,8 +69,10 @@ struct ContentView: View {
                  
                 Section  {
                     Text(totalPerPerson, format: currentCurrency)
+                        .foregroundColor(tipPercentage == 0 ? Color.red : Color.primary)
                 } header: {
                     Text("Amount per person")
+                        
                 }
             }
             .navigationTitle("WeSplit")
